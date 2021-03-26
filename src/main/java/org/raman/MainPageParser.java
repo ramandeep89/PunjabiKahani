@@ -22,7 +22,7 @@ public class MainPageParser {
 //                Author Exceptions - to be read manually
                 add("https://www.punjabikahani.punjabi-kavita.com/ਹਰੀ-ਕ੍ਰਿਸ਼ਨ-ਮਾਇਰ.php");
                 add("https://www.punjabikahani.punjabi-kavita.com/ਦਰਸ਼ਨ-ਸਿੰਘ-ਆਸ਼ਟ.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/Amrit-Kaur.php");
+
             }}
     );
 

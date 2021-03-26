@@ -6,9 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class AuthorPageParser {
     public static final List<String> IGNORE_URL_LIST = Collections.unmodifiableList(
@@ -28,20 +26,26 @@ public class AuthorPageParser {
             }}
     );
 
+    public static final Set<String> parsedUrls = new HashSet<>();
+
     public static final Author parse(final String authorName, final String authorUrl) throws IOException {
         System.out.println("authorUrl = " + authorUrl);
         Document document = Jsoup.connect(authorUrl).get();
         document.select("div[lang='pa'] h3").remove();
         String bio = document.select("div[lang='pa'] p").text();
-        Elements list = document.select("ul").get(1).select("a");
+        Elements ulElements = document.select("ul");
+        Elements list;
+        if (ulElements.size() > 1) list = ulElements.get(1).select("a");
+        else list = document.select("div.list a");
         list.select("i").remove();
         List<Story> stories = new ArrayList<>();
         for (Element link :
                 list) {
-//            storyLinksMap.put(link.text(), link.absUrl("href"));
-            String storyLink = link.absUrl("href");
-            if (!IGNORE_URL_LIST.contains(storyLink))
+            String storyLink = link.absUrl("href").split("#")[0];
+            if (!IGNORE_URL_LIST.contains(storyLink) && !parsedUrls.contains(storyLink)) {
+                parsedUrls.add(storyLink);
                 stories.add(new Story(link.text(), StoryPageParser.parse(storyLink)));
+            }
         }
         return new Author(authorName, bio, stories);
     }
