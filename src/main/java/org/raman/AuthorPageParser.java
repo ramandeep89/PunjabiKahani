@@ -9,11 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class AuthorPageParser {
-    public static final List<String> IGNORE_URL_LIST = Collections.unmodifiableList(
-            new ArrayList<String>() {{
-                add("https://www.punjabikahani.punjabi-kavita.com/JammuJiTusinBareRaaSujanSingh.php");
-                add("http://www.punjabi-kavita.com/Ram-Sarup-Ankhi.php");
-            }}
+    public static final List<String> IGNORE_URL_LIST = List.of(
     );
 
     public static final Set<String> parsedUrls = new HashSet<>();
@@ -22,7 +18,7 @@ public class AuthorPageParser {
         System.out.println("authorUrl = " + authorUrl);
         Document document = Jsoup.connect(PunjabiURLEncoder.encode(authorUrl)).get();
         document.select("div[lang='pa'] h3").remove();
-        String bio = document.select("div[lang='pa'] p").text();
+        String bio = document.select("div.left h2").text();
         Elements ulElements = document.select("ul");
         Elements list;
         if (ulElements.size() > 1) list = ulElements.get(1).select("a");
@@ -34,7 +30,18 @@ public class AuthorPageParser {
             String storyLink = link.absUrl("href").split("#")[0];
             if (!IGNORE_URL_LIST.contains(storyLink) && !parsedUrls.contains(storyLink)) {
                 parsedUrls.add(storyLink);
-                stories.add(new Story(link.text(), StoryPageParser.parse(storyLink)));
+                try {
+                    stories.add(new Story(link.text(),
+                            StoryPageParser.parse(storyLink)));
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                    try {
+                        stories.add(new Story(link.text(),
+                                StoryPageParser.parseAlternate(storyLink)));
+                    } catch (Exception e2) {
+                        System.out.println(e2);
+                    }
+                }
             }
         }
         return new Author(authorName, bio, stories);

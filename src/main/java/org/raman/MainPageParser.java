@@ -9,16 +9,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainPageParser {
-    public static final List<String> IGNORE_URL_LIST = Collections.unmodifiableList(
-            new ArrayList<String>() {{
-                add("https://www.punjabikahani.punjabi-kavita.com/PunjabiStories.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/Alif-Laila.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/ChildrenStories.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/Punjabi-Novels.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/PunjabiNovels.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/LokKahanian.php");
-                add("https://www.punjabikahani.punjabi-kavita.com/Panchtantra-Punjabi.php");
-            }}
+    public static final List<String> IGNORE_URL_LIST = List.of(
+            "https://www.punjabikahani.punjabi-kavita.com/PunjabiStories.php",
+            "https://www.punjabikahani.punjabi-kavita.com/Alif-Laila.php",
+            "https://www.punjabikahani.punjabi-kavita.com/ChildrenStories.php",
+            "https://www.punjabikahani.punjabi-kavita.com/Punjabi-Novels.php",
+            "https://www.punjabikahani.punjabi-kavita.com/PunjabiNovels.php",
+            "https://www.punjabikahani.punjabi-kavita.com/LokKahanian.php",
+            "https://www.punjabikahani.punjabi-kavita.com/Panchtantra-Punjabi.php"
     );
 
     public static final List<Author> parse(final String url) throws IOException {

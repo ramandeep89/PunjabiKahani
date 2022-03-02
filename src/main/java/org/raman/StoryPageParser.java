@@ -13,4 +13,10 @@ public class StoryPageParser {
         if (!document.select("div[lang='pa'] h2").isEmpty()) document.select("div[lang='pa'] h2").first().remove();
         return document.select("div[lang='pa']").first().outerHtml();
     }
+
+    public static String parseAlternate(final String storyUrl) throws IOException {
+        System.out.println("storyUrl = " + storyUrl);
+        Document document = Jsoup.connect(PunjabiURLEncoder.encode(storyUrl)).get();
+        return document.select("div.section").first().nextElementSibling().outerHtml();
+    }
 }
