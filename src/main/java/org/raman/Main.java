@@ -22,7 +22,9 @@ public class Main {
                 for (Story story :
                         author.getStories()) {
                     writer.write("<h2>" +
-                            story.getStoryName().substring(0, story.getStoryName().lastIndexOf(':')).trim() +
+                            (story.getStoryName().contains(":")
+                                    ?story.getStoryName().substring(0, story.getStoryName().lastIndexOf(':')).trim()
+                                    :story.getStoryName()) +
                             "</h2>");
                     writer.write("<p>" + story.getStoryText() + "</p>");
                 }
