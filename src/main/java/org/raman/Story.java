@@ -1,6 +1,8 @@
 package org.raman;
 
-public class Story {
+import java.io.Serializable;
+
+public class Story implements Serializable {
 
     private final String storyName;
     private final String storyText;

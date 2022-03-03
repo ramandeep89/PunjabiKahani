@@ -25,6 +25,11 @@
       <artifactId>jsoup</artifactId>
       <version>1.13.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.1-jre</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -55,7 +60,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>org.raman.Main</mainClass>
+                <mainClass>org.raman.BookObjectDumper</mainClass>
               </manifest>
             </archive>
           </configuration>

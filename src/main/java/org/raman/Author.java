@@ -1,9 +1,10 @@
 package org.raman;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Author {
+public class Author implements Serializable {
     private final String name;
     private final String bio;
     private final List<Story> stories;
