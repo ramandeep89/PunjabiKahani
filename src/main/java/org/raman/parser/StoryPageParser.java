@@ -2,7 +2,6 @@ package org.raman.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.raman.encoder.PunjabiURLEncoder;
 import org.raman.exception.ContainsPDFException;
 
 import java.io.IOException;

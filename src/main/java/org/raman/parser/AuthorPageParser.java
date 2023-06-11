@@ -10,6 +10,7 @@ import org.raman.encoder.PunjabiURLEncoder;
 import org.raman.pojo.Story;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 import static org.raman.constants.Constants.BASE_URL;
@@ -22,7 +23,7 @@ public class AuthorPageParser {
 
     public static Author parse(final String authorName, final String authorUrl) throws IOException {
         System.out.println("authorUrl = " + authorUrl);
-        Document document = Jsoup.connect(PunjabiURLEncoder.encode(authorUrl)).get();
+        Document document = Jsoup.parse(new URL(authorUrl).openStream(), "ISO-8859-1", authorUrl);
         document.select("div[lang='pa'] h3").remove();
         String bio = document.select("div.left h2").text();
         Elements ulElements = document.select("ul");
@@ -34,7 +35,7 @@ public class AuthorPageParser {
         for (Element link :
                 list) {
             // String storyLink = link.absUrl("href").split("#")[0];
-            String storyLink = PunjabiURLEncoder.encode(BASE_URL + link.attr("href")).split("#")[0];
+            String storyLink = PunjabiURLEncoder.encode(BASE_URL + link.attr("href")).split("%23")[0];
             if (!IGNORE_URL_LIST.contains(storyLink) && !parsedUrls.contains(storyLink)) {
                 parsedUrls.add(storyLink);
                 // Trying Alternate parser first as the website got updated and this saves time
