@@ -2,6 +2,7 @@ package org.raman.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.raman.exception.ContainsPDFException;
 
 import java.io.IOException;
@@ -16,6 +17,9 @@ public class StoryPageParser {
             throw new ContainsPDFException();
         }
         try {
+            for (Element element : document.select("a")) {
+                element.remove();
+            }
             return document.select("div.section").first().nextElementSibling().outerHtml();
         } catch (Exception e) {
             System.out.println(e.getMessage());

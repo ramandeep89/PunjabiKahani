@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.zip.InflaterInputStream;
 
 public class BookHtmlDumper {
-    public static final String HTML_FILES = "D:/books/punjabi";
+    public static final String HTML_FILES = "D:/books/punjabi/";
     public static final boolean COMBINE_AUTHORS = false;
     public static final int AUTHORS_PER_BOOK = 28;
     public static final String OBJECT_FILE = BookObjectDumper.OBJECT_FILE;
@@ -40,7 +40,7 @@ public class BookHtmlDumper {
         } else {
             for (List<Author> authors :
                     Lists.partition(book.getAuthors(), 1)) {
-                String filename = authors.get(0).getName() + ".html";
+                String filename = HTML_FILES + authors.get(0).getName().replaceAll("/", "").replaceAll("'", "") + ".html";
                 writeBooks(authors, filename);
             }
         }
@@ -51,6 +51,7 @@ public class BookHtmlDumper {
     }
 
     private static void writeBooks(List<Author> authors, String filename) throws IOException {
+        System.out.println(filename);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter( filename ))) {
             for (Author author :
                     authors) {
