@@ -33,15 +33,16 @@ public class AuthorPageParser {
             String storyLink = link.absUrl("href").split("#")[0];
             if (!IGNORE_URL_LIST.contains(storyLink) && !parsedUrls.contains(storyLink)) {
                 parsedUrls.add(storyLink);
+                // Trying Alternate parser first as the website got updated and this saves time
                 try {
                     stories.add(new Story(link.text(),
-                            StoryPageParser.parse(storyLink)));
+                            StoryPageParser.parseAlternate(storyLink)));
                 } catch (Exception e1) {
                     System.out.println(e1.getMessage());
                     System.out.println("Trying alternate parser");
                     try {
                         stories.add(new Story(link.text(),
-                                StoryPageParser.parseAlternate(storyLink)));
+                                StoryPageParser.parse(storyLink)));
                     } catch (Exception e2) {
                         System.out.println(e2.getMessage());
                         System.out.println("Failed alternate parser, skipping story");
