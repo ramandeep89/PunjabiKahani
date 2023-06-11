@@ -1,4 +1,8 @@
-package org.raman;
+package org.raman.main;
+
+import org.raman.pojo.Author;
+import org.raman.pojo.Book;
+import org.raman.parser.MainPageParser;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;

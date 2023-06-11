@@ -1,9 +1,10 @@
-package org.raman;
+package org.raman.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.raman.pojo.Author;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,7 +20,7 @@ public class MainPageParser {
             "https://www.punjabikahani.punjabi-kavita.com/Panchtantra-Punjabi.php"
     );
 
-    public static final List<Author> parse(final String url) throws IOException {
+    public static List<Author> parse(final String url) throws IOException {
         Document document = Jsoup.connect(url).get();
         Elements authorElements = document.select("div.full li a");
         List<Author> authors = new ArrayList<>();

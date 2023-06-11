@@ -1,4 +1,4 @@
-package org.raman;
+package org.raman.pojo;
 
 import java.io.Serializable;
 
