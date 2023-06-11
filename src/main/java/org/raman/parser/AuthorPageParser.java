@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.raman.exception.ContainsPDFException;
 import org.raman.pojo.Author;
 import org.raman.encoder.PunjabiURLEncoder;
 import org.raman.pojo.Story;
@@ -39,17 +40,12 @@ public class AuthorPageParser {
                 // Trying Alternate parser first as the website got updated and this saves time
                 try {
                     stories.add(new Story(link.text(),
-                            StoryPageParser.parseAlternate(storyLink)));
-                } catch (Exception e1) {
-                    System.out.println(e1.getMessage());
-                    System.out.println("Trying alternate parser");
-                    try {
-                        stories.add(new Story(link.text(),
-                                StoryPageParser.parse(storyLink)));
-                    } catch (Exception e2) {
-                        System.out.println(e2.getMessage());
-                        System.out.println("Failed alternate parser, skipping story");
-                    }
+                            StoryPageParser.parse(storyLink)));
+                } catch (ContainsPDFException e) {
+                    System.out.println("Contains PDF Ebook, skipping");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Failed parsing, skipping story");
                 }
             }
         }
