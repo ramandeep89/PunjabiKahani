@@ -11,6 +11,8 @@ import org.raman.pojo.Story;
 import java.io.IOException;
 import java.util.*;
 
+import static org.raman.constants.Constants.BASE_URL;
+
 public class AuthorPageParser {
     public static final List<String> IGNORE_URL_LIST = List.of(
     );
@@ -30,7 +32,8 @@ public class AuthorPageParser {
         List<Story> stories = new ArrayList<>();
         for (Element link :
                 list) {
-            String storyLink = link.absUrl("href").split("#")[0];
+            // String storyLink = link.absUrl("href").split("#")[0];
+            String storyLink = PunjabiURLEncoder.encode(BASE_URL + link.attr("href")).split("#")[0];
             if (!IGNORE_URL_LIST.contains(storyLink) && !parsedUrls.contains(storyLink)) {
                 parsedUrls.add(storyLink);
                 // Trying Alternate parser first as the website got updated and this saves time

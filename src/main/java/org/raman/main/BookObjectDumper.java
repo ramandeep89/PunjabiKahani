@@ -13,9 +13,10 @@ import java.time.Instant;
 import java.util.List;
 import java.util.zip.DeflaterOutputStream;
 
+import static org.raman.constants.Constants.MAIN_PAGE_URL;
+
 public class BookObjectDumper {
 
-    public static final String MAIN_PAGE_URL = "https://www.punjabikahani.punjabi-kavita.com/PunjabiStories.php";
     public static final String OBJECT_FILE = "D:/books/Punjabi.dat";
 
     public static void main(String[] args) throws IOException {
